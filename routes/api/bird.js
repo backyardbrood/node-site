@@ -26,7 +26,7 @@
  * Bird API handlers
  */
 
-exports.index = function(req, resp) {
+exports.list = function(req, resp) {
     resp.send(
         {
             '_links': {
@@ -77,8 +77,8 @@ exports.getById = function (req, resp) {
     );
 };
 
-exports.post = function (res, rep) {
-    resp.set
+exports.post = function (res, resp) {
+    resp.header('Location', '/bird/101');
     resp.send(
         201,
         {

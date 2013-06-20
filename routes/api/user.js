@@ -24,3 +24,105 @@
  *
  * User API handlers
  */
+
+
+exports.list = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/user?page=1',
+                'next': '/user?page=2',
+                'previous': '/user?page=1',
+                'first': '/user?page=first',
+                'last': '/user?page=last'
+            },
+            '_embedded': {
+                'user': [
+                    {
+                        '_links': {
+                            'self': '/user/1'
+                        },
+                        'email': 'userOne@BackYardBrood.com',
+                        'nameFirst': 'One',
+                        'nameLast': 'Uno',
+                        'zipCode': '11111'
+                    },
+                    {
+                        '_links': {
+                            'self': '/user/2'
+                        },
+                        'email': 'userTwo@BackYardBrood.com',
+                        'nameFirst': 'Two',
+                        'nameLast': 'Dos',
+                        'zipCode': '22222'
+                    }
+                ]
+            }
+        }
+    );
+};
+
+exports.getById = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/user/1'
+            },
+            'email': 'userOne@BackYardBrood.com',
+            'nameFirst': 'One',
+            'nameLast': 'Uno',
+            'zipCode': '11111'
+        }
+    );
+};
+
+exports.post = function (req, resp) {
+    resp.header('Location', '/user/1');
+    resp.send(
+        201,
+        {
+            '_links': {
+                'self': '/user/1'
+            },
+            'email': 'userOne@BackYardBrood.com',
+            'nameFirst': 'One',
+            'nameLast': 'Uno',
+            'zipCode': '11111'
+        }
+    );
+};
+
+exports.putById = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/user/1'
+            },
+            'email': 'userOne@BackYardBrood.com',
+            'nameFirst': 'One',
+            'nameLast': 'Uno',
+            'zipCode': '11111'
+        }
+    );
+};
+
+exports.loginSubmit = function (req, resp) {
+    var object,
+        code;
+
+    if (req.body.user == 'demo' && request.body.password == 'demo') {
+        var crypto = require('crypto');
+        var md5 = crypto.createHash('md5');
+        object = {
+                'token': md5(new Date() + 'demo'),
+                'message': 'Login successful'
+            };
+        code = 200;
+    } else {
+        object = {
+            'message': 'Authentication credentials not accepted'
+        };
+        code = 401;
+    }
+    resp.send(code, object);
+};

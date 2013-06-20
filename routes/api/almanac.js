@@ -25,3 +25,61 @@
  *
  * Almanac API handlers
  */
+exports.list = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/almanac?page=1',
+                'next': '/almanac?page=2',
+                'previous': '/almanac?page=1',
+                'first': '/almanac?page=1',
+                'last': '/almanac?page=last'
+            },
+            '_embedded': {
+                'almanac': [
+                    {
+                        '_links': {
+                            'self': '/almanac/2010-04-01'
+                        },
+                        'date': '2010-04-01',
+                        'tempHigh': 70,
+                        'tempLow': 50,
+                        'sunRise': '06:59',
+                        'sunSet': '18:59',
+                        'sunHours': 12,
+                        'production': 12
+                    },
+                    {
+                        '_links': {
+                            'self': '/almanac/2010-04-02'
+                        },
+                        'date': '2010-04-02',
+                        'tempHigh': 71,
+                        'tempLow': 51,
+                        'sunRise': '06:58',
+                        'sunSet': '18:58',
+                        'sunHours': 12,
+                        'production': 11
+                    }
+                ]
+            }
+        }
+    );
+};
+
+exports.getByDate = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/almanac/2010-04-01'
+            },
+            'date': '2010-04-01',
+            'tempHigh': 70,
+            'tempLow': 50,
+            'sunRise': '06:59',
+            'sunSet': '18:59',
+            'sunHours': 12,
+            'production': 12
+        }
+    );
+};

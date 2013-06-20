@@ -25,3 +25,77 @@
  *
  * Production API handlers
  */
+
+exports.list = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/production?page=1',
+                'first': '/production?page=1',
+                'next': '/production?page=2',
+                'last': '/production?page=last'
+            },
+            '_embedded': {
+                'entry': [
+                    {
+                        '_links': {
+                            'self': '/production/212',
+                            'bird': '/bird/1'
+                        },
+                        'date': '2010-04-01',
+                        'count': 5
+                    },
+                    {
+                        '_links': {
+                            'self': '/production/312',
+                            'bird': '/bird/2'
+                        },
+                        'date': '2010-04-01',
+                        'count': 6
+                    }
+                ]
+            }
+        }
+    );
+};
+
+exports.post = function (req, resp) {
+    resp.header('Location', '/production/500');
+    resp.send(
+        201,
+        {
+            '_links': {
+                'self': '/production/500',
+                'bird': '/bird/2'
+            },
+            'date': '2010-04-01',
+            'count': 6
+        }
+    );
+};
+
+exports.getById = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/production/500',
+                'bird': '/bird/2'
+            },
+            'date': '2010-04-01',
+            'count': 6
+        }
+    );
+};
+
+exports.putById = function (req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/production/500',
+                'bird': '/bird/2'
+            },
+            'date': '2010-04-01',
+            'count': 6
+        }
+    );
+};

@@ -19,9 +19,75 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+exports.list = function(req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/ledger/?page=1',
+                'next': '/ledger/?page=2',
+                'previous': '/ledger/?page=1',
+                'first': '/ledger/?page=1',
+                'last': '/ledger/?page=last'
+            },
+            '_embedded': [
+                {
+                    '_links': {
+                        'self': '/ledger/100'
+                    },
+                    'date': '2010-01-01',
+                    'description': 'Feed',
+                    'amount': -23.54
+                },
+                {
+                    '_links': {
+                        'self': '/ledger/101'
+                    },
+                    'date': '2010-01-03',
+                    'description': 'Farmers Market sale',
+                    'amount': 30.00
+                }
+            ]
+        }
+    );
+};
 
-/**
- * @author Adam L. Englander <adam.l.englander@coupla.co>
- *
- * Ledger API handlers
- */
+exports.post = function(req, resp) {
+    resp.header('Location', '/ledger/102');
+    resp.send(
+        201,
+        {
+            '_links': {
+                'self': '/ledger/102'
+            },
+            'date': '2010-01-01',
+            'description': 'Feed',
+            'amount': 12.34
+        }
+    );
+};
+
+exports.getById = function(req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/ledger/100'
+            },
+            'date': '2010-01-01',
+            'description': 'Feed',
+            'amount': -23.54
+        }
+    );
+};
+
+exports.putById = function(req, resp) {
+    resp.send(
+        {
+            '_links': {
+                'self': '/ledger/100'
+            },
+            'date': '2010-01-01',
+            'description': 'Feed',
+            'amount': -23.54
+        }
+    );
+};
