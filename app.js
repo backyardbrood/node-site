@@ -33,13 +33,32 @@ if ('development' == app.get('env')) {
 app.get('/', web.index);
 
 app.get('/api', api.index)
-app.get('/api/bird', api.bird.index);
+
+app.get('/api/bird', api.bird.list);
 app.post('/api/bird', api.bird.post);
 app.put('/api/bird/:id', api.bird.putById);
 app.get('/api/bird/:id/production', api.bird.getBirdByIdProduction);
 app.get('/api/bird/:id', api.bird.getById);
 
+app.get('/api/almanac', api.almanac.list);
+app.get('/api/almanac/:date', api.almanac.getByDate);
+
+app.get('/api/ledger', api.ledger.list);
+app.post('/api/ledger', api.ledger.post);
+app.get('/api/ledger/:id', api.ledger.getById);
+app.put('/api/ledger/:id', api.ledger.putById);
+
+app.get('/api/production', api.production.list);
+app.post('/api/production', api.production.post);
+app.get('/api/production/:id', api.production.getById);
+app.put('/api/production/:id', api.production.putById);
+
+app.get('/api/user', api.user.list);
+app.post('/api/user', api.user.post);
+app.get('/api/user/:id', api.user.getById);
+app.put('/api/user/:id', api.user.putById);
+app.post('/api/user/login', api.user.loginSubmit);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-  console.log(app.routes)
 });

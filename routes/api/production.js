@@ -36,7 +36,7 @@ exports.list = function (req, resp) {
                 'last': '/production?page=last'
             },
             '_embedded': {
-                'entry': [
+                'production': [
                     {
                         '_links': {
                             'self': '/production/212',

@@ -29,24 +29,26 @@ exports.list = function(req, resp) {
                 'first': '/ledger/?page=1',
                 'last': '/ledger/?page=last'
             },
-            '_embedded': [
-                {
-                    '_links': {
-                        'self': '/ledger/100'
+            '_embedded': {
+                'ledger': [
+                    {
+                        '_links': {
+                            'self': '/ledger/100'
+                        },
+                        'date': '2010-01-01',
+                        'description': 'Feed',
+                        'amount': -23.54
                     },
-                    'date': '2010-01-01',
-                    'description': 'Feed',
-                    'amount': -23.54
-                },
-                {
-                    '_links': {
-                        'self': '/ledger/101'
-                    },
-                    'date': '2010-01-03',
-                    'description': 'Farmers Market sale',
-                    'amount': 30.00
-                }
-            ]
+                    {
+                        '_links': {
+                            'self': '/ledger/101'
+                        },
+                        'date': '2010-01-03',
+                        'description': 'Farmers Market sale',
+                        'amount': 30.00
+                    }
+                ]
+            }
         }
     );
 };
