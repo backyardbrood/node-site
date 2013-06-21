@@ -5,6 +5,7 @@
 
 var express = require('express')
   , web = require('./routes/web')
+  , mobile = require('./routes/mobile')
   , api = require('./routes/api')
   , http = require('http')
   , path = require('path');
@@ -31,6 +32,10 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', web.index);
+
+app.get('/mobile', mobile.index);
+app.get('/mobile/login', mobile.loginView);
+app.post('/mobile/login', mobile.loginSubmit);
 
 app.get('/api', api.index)
 
