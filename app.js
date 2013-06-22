@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -8,14 +7,31 @@ var express = require('express')
   , mobile = require('./routes/mobile')
   , api = require('./routes/api')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , cons = require('consolidate')
+  , swig = require('swig');
 
 var app = express();
+
+// development only
+var templateCache;
+if ('development' == app.get('env')) {
+    app.use(express.errorHandler());
+    templateCache = false;
+} else {
+    templateCache = true;
+}
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+swig.init({
+    root: app.get('views'),
+    cache: templateCache,
+    allowErrors: true // allows errors to be thrown and caught by express instead of suppressed by Swig
+});
+app.engine('.html', cons.swig);
+app.set('view engine', 'html');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -26,10 +42,6 @@ app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 app.get('/', web.index);
 
@@ -64,6 +76,6 @@ app.get('/api/user/:id', api.user.getById);
 app.put('/api/user/:id', api.user.putById);
 app.post('/api/user/login', api.user.loginSubmit);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
 });

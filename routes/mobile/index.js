@@ -27,19 +27,24 @@
  */
 
 exports.index = function(req, res) {
-    res.render('mobile/index');
+    if (!req.session.loggedIn) {
+        res.redirect('/mobile/login.html');
+    }
+    res.render('mobile/index.html');
 }
 
 exports.loginView = function(req, res) {
-    res.render('mobile/login', {error: null});
+    res.render('mobile/login.html', {error: null});
 };
 
 exports.loginSubmit = function(req, res) {
     var error;
     if (req.body.email == 'demo@backyardbrood.com' && req.body.password == 'demo') {
-        res.redirect('/mobile')
+        req.session.loggedIn = true;
+        res.redirect('/mobile');
+        return;
     } else {
         error = 'Invalid credentials';
     }
-    res.render('mobile/login', {error: error});
+    res.render('mobile/login.html', {error: error});
 };

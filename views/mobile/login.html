@@ -1,0 +1,51 @@
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/jquery.mobile-1.3.1/jquery.mobile.structure-1.3.1.css" />
+        <link rel="stylesheet" href="/jquery.mobile-1.3.1/jquery.mobile.theme-1.3.1.css" />
+        <script src="/javascripts/jquery.js"></script>
+        <script src="/jquery.mobile-1.3.1/jquery.mobile-1.3.1.js"></script>
+        <title>Backyard Brood</title>
+    </head>
+    <body>
+         <div data-role="page" id="login-page" style="height: 100%">
+             <div data-role="header">
+                 <h1>Login</h1>
+             </div>
+             <div data-role="content">
+                 {% if (error) %}
+                 <script type="text/javascript">
+                     $.mobile.changePage( "#login-error-invalid-credentials", { role: "dialog" } );
+                 </script>
+                 {% endif %}
+                 <div style="width: 100%; text-align: center">
+                     <img src="/images/logo.png" style="max-width: 25%; max-height: 25%; text-align: center"/>
+                     <h1>Backyard Brood</h1>
+                 </div>
+                 <form method="post">
+                     <fieldset data-role="field-contain">
+                         <label for="email" class="ui-hidden-accessible">Email Address:</label>
+                         <input type="email" name="email" id="email" placeholder="Email Address" value="">
+                         <label for="password" class="ui-hidden-accessible">Password:</label>
+                         <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
+                         <button type="submit" id="submit">Login</button>
+                     </fieldset>
+                 </form>
+             </div>
+             <div data-ajax="footer">
+                 <div style="text-align: center">
+                     Copyright &copy; 2013 Adam L.Englander
+                 </div>
+             </div>
+         </div>
+         <div data-role="page" id="login-error-invalid-credentials">
+             <div data-role="header">
+                 <h1>Login Error</h1>
+                 <div data-role="content">
+                     The login credentials you provided were invalid.  Please check your email address and password and
+                     try again.
+                 </div>
+             </div>
+         </div>
+    </body>
+</html>
