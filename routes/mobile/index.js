@@ -28,7 +28,7 @@
 
 exports.index = function(req, res) {
     if (!req.session.loggedIn) {
-        res.redirect('/mobile/login.html');
+        res.redirect('/mobile/login');
     }
     res.render('mobile/index.html');
 }
